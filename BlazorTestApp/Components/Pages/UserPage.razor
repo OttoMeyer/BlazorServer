@@ -1,0 +1,121 @@
+﻿@page "/UserPage"
+@using BlazorTestApp.UserDataTypes
+@rendermode InteractiveServer
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates showing data.</p>
+
+<div class="row row-cols-auto">
+    <div class="col btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary" @onclick="BlockUsers"><i class="bi bi-lock-fill"></i> Block</button>
+        <button type="button" class="btn btn-primary" @onclick="UnblockUsers"><i class="bi bi-unlock-fill"></i></button>
+        <button type="button" class="btn btn-danger" @onclick="DeleteUsers"><i class="bi bi-trash-fill"></i></button>
+    </div>
+    
+    <div class="col input-group" style="width: 400px; margin-left: auto">
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Search" 
+            aria-label="Username" 
+            aria-describedby="basic-addon1">
+        <span class="input-group-text bi bi-search"></span>
+    </div>
+
+    
+</div>
+
+@if (userDataTypes == null)
+{
+    <p>
+        <em>Loading...</em>
+    </p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <td class="col-1"><input class="form-check-input" type="checkbox" id="checkboxNoLabel" aria-label="... "></td>
+            <th class="col-2">Name</th>
+            <th class="col-3">Email</th>
+            <th class="col-3">Last Login</th>
+            <th class="col-3">Status</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
+        @foreach (var userDataType in userDataTypes)
+        { 
+            <tr>
+                <td><input class="form-check-input" 
+                           type="checkbox" 
+                           id="checkboxNoLabel" 
+                           checked="@selectedUsers.Contains(userDataType)" 
+                           aria-label="..." 
+                           @oninput="() => ChangeState(userDataType)"></td>
+                <td>@userDataType.Name</td>
+                <td>@userDataType.Email</td>
+                <td>@userDataType.LastLogin</td>
+                <td>@userDataType.Status</td>
+            </tr>
+        }
+
+        </tbody>
+    </table>
+}
+
+@code {
+    
+    
+    List<UserInformation> userDataTypes =
+    [
+        new UserInformation{Name = "a",Email = "a@gmail.com",LastLogin = new DateTime(2026, 4, 18),Status = "Active"},
+        new UserInformation{Name = "b",Email = "b@gmail.com",LastLogin = new DateTime(2026, 3, 17),Status = "Unverified"},
+        new UserInformation{Name = "c",Email = "c@gmail.com",LastLogin = new DateTime(2025, 2, 1),Status = "Block"},
+        new UserInformation{Name = "d",Email = "d@gmail.com",LastLogin = new DateTime(2026, 4, 18),Status = "Unverified"},
+    ];
+
+    List<UserInformation> selectedUsers = [];
+    
+    private void ChangeState(UserInformation user)
+    {
+        if (selectedUsers.Contains(user))
+        {
+            selectedUsers.Remove(user);
+        }
+        else
+        {
+            selectedUsers.Add(user);
+        }
+    }
+
+    private void BlockUsers()
+    {
+        foreach (var user in selectedUsers)
+        {
+            user.Status = "Block";
+        }
+        selectedUsers.Clear();
+    }
+    
+    private void UnblockUsers()
+    {
+        foreach (var user in selectedUsers)
+        {
+            user.Status = "Active";
+        }
+        selectedUsers.Clear();
+    }
+
+    private void DeleteUsers()
+    {
+        foreach (var user in selectedUsers)
+        {
+            userDataTypes.Remove(user);
+        }
+        selectedUsers.Clear();
+    }
+} 

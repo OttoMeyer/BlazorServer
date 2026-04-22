@@ -1,0 +1,94 @@
+﻿@page "/"
+@using System.Security.Cryptography
+@using System.Text
+@rendermode InteractiveServer
+@inject NavigationManager Navigation
+
+<PageTitle>Login</PageTitle>
+
+<div class="container-fluid gap-3 flex-wrap">
+    <div class="row align-items-center">
+        <div class="col mh-100 d-inline-block align-items-start">
+            <div class="col">
+                <img src="castle_grey.png" width="102" alt="Cool Image">
+            </div>
+            <div class="row">
+                <h6 class="text-start text-body-secondary">Start your journey</h6>
+                <h5 class="text-start">Sigh In to The App</h5>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="E-Mail" 
+                        aria-label="Username" 
+                        aria-describedby="basic-addon1"
+                        @bind="email">
+                    <span class="input-group-text bi bi-envelope-at-fill"></span>
+                </div>
+                <div class="input-group">
+                    <input 
+                        type="password" 
+                        class="form-control" 
+                        placeholder="Password" 
+                        aria-label="Username" 
+                        aria-describedby="basic-addon1"
+                        @bind="password">
+                    <span class="input-group-text bi bi-key-fill"></span>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkChecked" checked>
+                    <label class="form-check-label" for="checkChecked">Remember me</label>
+                </div>
+                <div class="d-grid">
+                    <button type="button" class="btn btn-primary align-content-lg-stretch" @onclick="SighIn">Sigh in</button>
+                </div>
+            </div>
+            <div class="row align-bottom">
+                <div class="col">
+                    <p class="text-start">Don't have an account? <a href="#" class="link-offset-1">Sing up</a></p></div>
+                <div class="col">
+                    <p class="text-end"><a href="#" class="link-offset-1">Forgot password?</a></p></div>
+            </div>
+        </div>
+        <div class="col d-none d-lg-block">
+            <img src="uncolored_castle.png" class="card-img-top rounded" alt="Cool Image">
+        </div>
+    </div>
+</div>
+
+@code {
+
+    string email = "";
+    string password = "";
+    
+    const string correct_email = "admin";
+    const string correct_password = "fb001dfcffd1c899f3297871406242f097aecf1a5342ccf3ebcd116146188e4b"; // admin
+    private void SighIn()
+    {
+        Console.WriteLine(email + " " + password);
+        if (CheckLogin())
+        {
+            Navigation.NavigateTo("UserPage");
+        }
+        
+    }
+
+    private bool CheckLogin()
+    {
+        if (email == correct_email && GenerateHash(password) == correct_password)
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    private static string GenerateHash(string text)
+    {
+        byte[] bytes_data = Encoding.UTF8.GetBytes(text);
+        SHA3_256 sha = SHA3_256.Create();
+        byte[] hashBytes = sha.ComputeHash(bytes_data);
+        string hashString = BitConverter.ToString(hashBytes).Replace("-", "");
+        return hashString.ToLower();
+    }
+
+}
