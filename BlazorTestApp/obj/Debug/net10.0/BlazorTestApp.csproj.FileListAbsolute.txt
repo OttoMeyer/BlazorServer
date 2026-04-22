@@ -104,7 +104,6 @@ C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\rjimswa
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\scopedcss\Components\Layout\MainLayout.razor.rz.scp.css
-C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\scopedcss\Components\Layout\NavMenu.razor.rz.scp.css
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\scopedcss\Components\Layout\ReconnectModal.razor.rz.scp.css
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\scopedcss\bundle\BlazorTestApp.styles.css
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\scopedcss\projectbundle\BlazorTestApp.bundle.scp.css
@@ -156,8 +155,6 @@ C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\compres
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\compressed\mmq3qc5mkj-{0}-abdmv1u4y3-abdmv1u4y3.gz
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\compressed\gbuwq4tcfu-{0}-b9228eflpl-b9228eflpl.gz
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\compressed\y33f0e3qme-{0}-2tj1sjhksk-2tj1sjhksk.gz
-C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\compressed\8w9kfks2pj-{0}-nrwo9x0iut-nrwo9x0iut.gz
-C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\compressed\56v25ng6en-{0}-nrwo9x0iut-nrwo9x0iut.gz
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\staticwebassets.development.json
@@ -169,3 +166,5 @@ C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\BlazorT
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\BlazorTestApp.genruntimeconfig.cache
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\ref\BlazorTestApp.dll
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\BlazorTestApp.sourcelink.json
+C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\compressed\8w9kfks2pj-{0}-yxic5zqsl3-yxic5zqsl3.gz
+C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\compressed\56v25ng6en-{0}-yxic5zqsl3-yxic5zqsl3.gz
