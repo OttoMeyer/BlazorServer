@@ -1,0 +1,7 @@
+﻿services:
+  blazortestapp:
+    image: blazortestapp
+    build:
+      context: .
+      dockerfile: BlazorTestApp/Dockerfile
+
