@@ -22,7 +22,8 @@
                         placeholder="E-Mail" 
                         aria-label="Username" 
                         aria-describedby="basic-addon1"
-                        @bind="email">
+                        @bind="email"
+                        required>
                     <span class="input-group-text bi bi-envelope-at-fill"></span>
                 </div>
                 <div class="input-group" style="margin-top: 6px">
@@ -61,8 +62,8 @@
     string email = "";
     string password = "";
     
-    const string correct_email = "admin";
-    const string correct_password = "fb001dfcffd1c899f3297871406242f097aecf1a5342ccf3ebcd116146188e4b"; // admin
+    const string correctEmail = "admin";
+    const string correctPassword = "fb001dfcffd1c899f3297871406242f097aecf1a5342ccf3ebcd116146188e4b"; // admin
     
     private void SighIn()
     {
@@ -76,7 +77,7 @@
 
     private bool CheckLogin()
     {
-        if (email == correct_email && GenerateHash(password) == correct_password)
+        if (email == correctEmail && GenerateHash(password) == correctPassword)
         {
             return true;
         }
@@ -85,9 +86,9 @@
     
     private static string GenerateHash(string text)
     {
-        byte[] bytes_data = Encoding.UTF8.GetBytes(text);
+        byte[] bytesData = Encoding.UTF8.GetBytes(text);
         SHA3_256 sha = SHA3_256.Create();
-        byte[] hashBytes = sha.ComputeHash(bytes_data);
+        byte[] hashBytes = sha.ComputeHash(bytesData);
         string hashString = BitConverter.ToString(hashBytes).Replace("-", "");
         return hashString.ToLower();
     }
