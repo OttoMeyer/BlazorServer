@@ -168,3 +168,4 @@ C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\refint\
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\BlazorTestApp.pdb
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\BlazorTestApp.genruntimeconfig.cache
 C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\ref\BlazorTestApp.dll
+C:\Users\Otto\RiderProjects\BlazorServer\BlazorTestApp\obj\Debug\net10.0\BlazorTestApp.sourcelink.json
