@@ -1,6 +1,10 @@
 ﻿@page "/UserPage"
+@using BlazorTestApp.Database
 @using BlazorTestApp.UserDataTypes
+@using Npgsql
+@using Dapper
 @rendermode InteractiveServer
+@inject IDbConnectionFactory connectionFactory
 
 <PageTitle>User List</PageTitle>
 
@@ -39,7 +43,7 @@ else
                 <td><input class="form-check-input" 
                            type="checkbox" 
                            id="checkboxNoLabel" 
-                           checked="@selectedUsersList.Contains(userDataType)" 
+                           checked="@selectedUsers.Contains(userDataType)" 
                            aria-label="..." 
                            @oninput="() => ChangeState(userDataType)"></td>
                 <td>@userDataType.Name</td>
@@ -54,62 +58,69 @@ else
 }
 
 @code {
+    private IDbConnectionFactory _connectionFactory;
     
+    List<UserInformation> usersList = [];
+    HashSet<UserInformation> selectedUsers = new HashSet<UserInformation>();
     
-    List<UserInformation> usersList =
-    [
-        new UserInformation{Name = "a",Email = "a@gmail.com",LastLogin = new DateTime(2026, 4, 18),Status = "Active"},
-        new UserInformation{Name = "b",Email = "b@gmail.com",LastLogin = new DateTime(2026, 3, 17),Status = "Unverified"},
-        new UserInformation{Name = "c",Email = "c@gmail.com",LastLogin = new DateTime(2025, 2, 1),Status = "Block"},
-        new UserInformation{Name = "d",Email = "d@gmail.com",LastLogin = new DateTime(2026, 4, 18),Status = "Unverified"},
-        new UserInformation{Name = "e",Email = "e@gmail.com",LastLogin = new DateTime(2026, 5, 1),Status = "Active"},
-        new UserInformation{Name = "f",Email = "b@gmail.com",LastLogin = new DateTime(2024, 6, 8),Status = "Active"},
-        new UserInformation{Name = "g",Email = "f@gmail.com",LastLogin = new DateTime(2026, 8, 4),Status = "Block"},
-        new UserInformation{Name = "h",Email = "h@gmail.com",LastLogin = new DateTime(2023, 2, 3),Status = "Block"},
-        new UserInformation{Name = "i",Email = "i@gmail.com",LastLogin = new DateTime(2025, 1, 18),Status = "Active"},
-        new UserInformation{Name = "j",Email = "j@gmail.com",LastLogin = new DateTime(2025, 9, 1),Status = "Unverified"},
-        new UserInformation{Name = "k",Email = "k@gmail.com",LastLogin = new DateTime(2025, 11, 2),Status = "Active"},
-        new UserInformation{Name = "l",Email = "l@gmail.com",LastLogin = new DateTime(2026, 1, 4),Status = "Block"},
-    ];
+    protected override async Task OnInitializedAsync()
+    {
+        _connectionFactory = connectionFactory;
+        await LoadUsers();
+    }
 
-    List<UserInformation> selectedUsersList = [];
+    private async Task LoadUsers()
+    {
+        using var conn = await _connectionFactory.CreateConnectionAsync();
+        var rows = await conn.QueryAsync<UserInformation>("SELECT * FROM test_table");
+        usersList = rows.ToList();
+    } 
     
     private void ChangeState(UserInformation user)
     {
-        if (selectedUsersList.Contains(user))
+        if (selectedUsers.Contains(user))
         {
-            selectedUsersList.Remove(user);
+            selectedUsers.Remove(user);
         }
         else
         {
-            selectedUsersList.Add(user);
+            selectedUsers.Add(user);
         }
     }
 
-    private void BlockUsers()
+    private async void BlockUsers()
     {
-        foreach (var user in selectedUsersList)
+        foreach (var user in selectedUsers)
         {
             user.Status = "Block";
+            var conn = _connectionFactory.CreateConnection();
+            conn.Execute("UPDATE test_table SET Status = 'Block' WHERE Email = @Email;", new { Email = user.Email });
         }
-        selectedUsersList.Clear();
+        selectedUsers.Clear();
+        StateHasChanged();
     }
     
-    private void UnblockUsers()
+    private async void UnblockUsers()
     {
-        foreach (var user in selectedUsersList)
+        foreach (var user in selectedUsers)
         {
             user.Status = "Active";
+            var conn = _connectionFactory.CreateConnection();
+            conn.Execute("UPDATE test_table SET Status = 'Block' WHERE Email = @Email;", new { Email = user.Email });
         }
-        selectedUsersList.Clear();
+        selectedUsers.Clear();
+        StateHasChanged();
     }
-
+    
     private void DeleteUsers()
     {
-        foreach (var user in selectedUsersList)
+        foreach (var user in selectedUsers)
         {
             usersList.Remove(user);
+            var conn = _connectionFactory.CreateConnection();
+            conn.Execute("DELETE FROM test_table WHERE Email = @Email;", new { Email = user.Email });
         }
-        selectedUsersList.Clear();
+        selectedUsers.Clear();
+        StateHasChanged();
     }
 } 
