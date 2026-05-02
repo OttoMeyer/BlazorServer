@@ -37,6 +37,17 @@ builder.Services.AddScoped<SignInManager<IdentityUser>>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    var user = await userManager.FindByNameAsync("admin");
+    if (user == null)
+    {
+        user = new IdentityUser("admin") { Email = "admin@example.com", EmailConfirmed = true };
+        await userManager.CreateAsync(user, "P@ssw0rd!");
+    }
+}
 
 
 // Configure the HTTP request pipeline.
@@ -57,16 +68,3 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
-
-using (var scope = app.Services.CreateScope())
-{
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-    var user = await userManager.FindByNameAsync("admin");
-    if (user == null)
-    {
-        user = new IdentityUser("admin") { Email = "admin@example.com", EmailConfirmed = true };
-        await userManager.CreateAsync(user, "P@ssw0rd!");
-    }
-}
