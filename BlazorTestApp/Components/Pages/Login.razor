@@ -5,6 +5,9 @@
 @rendermode InteractiveServer
 @inject NavigationManager Navigation
 
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 
 <PageTitle>Login</PageTitle>
 
@@ -43,7 +46,7 @@
                     <label class="form-check-label" for="checkChecked" style="margin-left: 6px">Remember me</label>
                 </div>
                 <div class="d-grid" style="margin-top: 6px">
-                    <button type="button" class="btn btn-primary align-content-lg-stretch" @onclick="SighIn">Sigh in</button>
+                    <button type="button" class="btn btn-primary align-content-lg-stretch" @onclick="HandleLogin">Sigh in</button>
                 </div>
             </div>
             <div class="row align-bottom" style="margin-top: 6px">
@@ -60,6 +63,23 @@
 </div>
 
 @code {
+    class LoginModel { public string UserName { get; set; } = ""; public string Password { get; set; } = ""; }
+
+    LoginModel loginModel = new();
+
+    async Task HandleLogin()
+    {
+        var user = await UserManager.FindByNameAsync(email);
+        if (user == null)
+        {
+            // optionally show message or create user (see registration)
+            return;
+        }
+
+        var result = await SignInManager.PasswordSignInAsync(user, password, isPersistent: false, lockoutOnFailure: false);
+        if (result.Succeeded) Navigation.NavigateTo("UserPage");
+        else { /* show failure message */ }
+    }
 
     string email = "";
     string password = "";
